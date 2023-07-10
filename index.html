@@ -5,24 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>100 Divs</title>
     <style>
-      body {
+      section {
         display: flex;
         flex-wrap: wrap;
         height: 100vh;
+        padding: 8px;
       }
       div {
-        width: 300px;
+        width: 200px;
         height: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: lightcyan;
         margin: 2px;
+        border-radius: 8px;
+        background-color: lightcyan;
         cursor: pointer;
+      }
+      div:hover {
+        background-color: lightblue;
       }
     </style>
   </head>
   <body>
-    <script></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const totalDivs = 100;
+        const body = document.querySelector("body");
+        const section = document.createElement("section");
+
+        for (let i = 1; i <= totalDivs; i++) {
+          const div = document.createElement("div");
+          div.textContent = `Div #${i}`;
+          section.appendChild(div);
+        }
+        body.appendChild(section);
+      });
+    </script>
   </body>
 </html>
