@@ -31,6 +31,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const totalDivs = 100;
+        const divs = [];
         const body = document.querySelector("body");
         const section = document.createElement("section");
 
@@ -38,8 +39,25 @@
           const div = document.createElement("div");
           div.textContent = `Div #${i}`;
           section.appendChild(div);
+          divs.push(div);
         }
         body.appendChild(section);
+
+        const onClick = (e) => {
+          const div = e.target;
+          const index = divs.indexOf(div);
+
+          if (index === 0) {
+            section.insertBefore(div, section.children[1]);
+          } else {
+            const originalIndex = totalDivs - index - 1;
+            const originalDiv = divs[originalIndex];
+            section.insertBefore(div, originalDiv.nextSibling);
+          }
+        };
+        divs.forEach((div) => {
+          div.addEventListener("click", onClick);
+        });
       });
     </script>
   </body>
