@@ -47,12 +47,10 @@
           const div = e.target;
           const index = divs.indexOf(div);
 
-          if (index === 0) {
-            section.insertBefore(div, section.children[1]);
+          if (div === section.firstChild && index !== 0) {
+            section.insertBefore(div, section.childNodes[index + 1]);
           } else {
-            const originalIndex = totalDivs - index - 1;
-            const originalDiv = divs[originalIndex];
-            section.insertBefore(div, originalDiv.nextSibling);
+            section.insertBefore(div, section.firstChild);
           }
         };
         divs.forEach((div) => {
