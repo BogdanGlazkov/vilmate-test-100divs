@@ -8,6 +8,7 @@
       section {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         height: 100vh;
         padding: 8px;
       }
@@ -38,6 +39,7 @@
         for (let i = 1; i <= totalDivs; i++) {
           const div = document.createElement("div");
           div.textContent = `Div #${i}`;
+          div.id = i;
           section.appendChild(div);
           divs.push(div);
         }
@@ -45,14 +47,26 @@
 
         const onClick = (e) => {
           const div = e.target;
-          const index = divs.indexOf(div);
+          const array = [...section.childNodes];
+          const index = array.indexOf(div);
+          const firstDiv = document.getElementById("1");
+          const firstDivIndex = array.indexOf(firstDiv);
 
-          if (div === section.firstChild && index !== 0) {
-            section.insertBefore(div, section.childNodes[index + 1]);
+          if (index < firstDivIndex) {
+            const nextChild = () => {
+              for (let i = firstDivIndex; i < array.length; i++) {
+                if (+array[i].id > +div.id) {
+                  return i;
+                  break;
+                }
+              }
+            };
+            section.insertBefore(div, section.childNodes[nextChild()]);
           } else {
             section.insertBefore(div, section.firstChild);
           }
         };
+
         divs.forEach((div) => {
           div.addEventListener("click", onClick);
         });
