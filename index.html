@@ -47,22 +47,15 @@
 
         const onClick = (e) => {
           const div = e.target;
+          const isMoved = div.getAttribute("moved");
           const array = [...section.childNodes];
           const index = array.indexOf(div);
-          const firstDiv = document.getElementById("1");
-          const firstDivIndex = array.indexOf(firstDiv);
 
-          if (index < firstDivIndex) {
-            const nextChild = () => {
-              for (let i = firstDivIndex; i < array.length; i++) {
-                if (+array[i].id > +div.id) {
-                  return i;
-                  break;
-                }
-              }
-            };
-            section.insertBefore(div, section.childNodes[nextChild()]);
+          if (div.getAttribute("moved")) {
+            div.removeAttribute("moved");
+            section.insertBefore(div, section.childNodes[div.id]);
           } else {
+            div.setAttribute("moved", 1);
             section.insertBefore(div, section.firstChild);
           }
         };
